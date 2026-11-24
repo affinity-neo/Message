@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
 <title>안내 메시지 자동 생성기 | Affinity Universe</title>
 <style>
 :root{--bg:#f4f5f8;--card:#fff;--ink:#1c2030;--sub:#6b7185;--line:#e3e6ee;--acc:#2f4fd8;--acc2:#e9edff;--ok:#1f8f5f;}
@@ -150,8 +151,9 @@ function update(){
   const c=cat(),v=S.vals[c.id]||{};
   $("out").textContent=c.b(v,S.goods);
   const im=$("pimg");
-  if(c.img){im.src=IMG[c.img];im.hidden=false}else{im.hidden=true}
-  $("bImgCopy").hidden=$("bImgDown").hidden=!c.img;
+  const hasImage=c.id!=="c3"&&!!c.img;
+  if(hasImage){im.src=IMG[c.img];im.hidden=false}else{im.removeAttribute("src");im.hidden=true}
+  $("bImgCopy").hidden=$("bImgDown").hidden=!hasImage;
   $("note").textContent=c.f.some(f=>f[0]!=="name"&&f[0]!=="title"&&f[0]!=="birth"&&f[0]!=="date")&&!c.goods?"비워 둔 링크 항목은 문구에서 자동으로 제외됩니다.":"";
 }
 function flash(btn,t){const s=btn.querySelector("span"),o=s.textContent;btn.classList.add("done");s.textContent=t;setTimeout(()=>{btn.classList.remove("done");s.textContent=o},1400)}
